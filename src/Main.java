@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 /**
  * Smart Campus Lost & Found Management System
- * Day 1: Basic Console Setup and Main Menu Navigation
+ * Day 2: Classes, Objects, Constructors, and User Profile Demonstration
  */
 public class Main {
 
@@ -10,15 +10,32 @@ public class Main {
         // Create a Scanner object to read input from the console
         Scanner scanner = new Scanner(System.in);
         
-        // Flag variable to keep the application running until the user chooses to exit
-        boolean isRunning = true;
-
         // Welcome banner
         System.out.println("==================================================");
         System.out.println("   Smart Campus Lost & Found Management System    ");
         System.out.println("==================================================");
 
-        // Main application loop
+        // Day 2 Task: Capture user details from keyboard using Scanner
+        System.out.println("\n--- Step 1: User Registration ---");
+        System.out.print("Enter your Name: ");
+        String name = scanner.nextLine().trim();
+
+        System.out.print("Enter your Student ID: ");
+        String studentId = scanner.nextLine().trim();
+
+        System.out.print("Enter your Department: ");
+        String department = scanner.nextLine().trim();
+
+        // Day 2 Task: Create a User object using the constructor
+        User currentUser = new User(name, studentId, department);
+
+        // Day 2 Task: Call the method to display the entered user details
+        currentUser.displayUserDetails();
+
+        // Flag variable to keep the application running until the user chooses to exit
+        boolean isRunning = true;
+
+        // Main application loop (from Day 1)
         while (isRunning) {
             // Display the menu options
             displayMenu();
@@ -51,7 +68,7 @@ public class Main {
                     System.out.println("\n[!] Admin - Feature coming soon!");
                     break;
                 case "8":
-                    System.out.println("\nThank you for using Smart Campus Lost & Found System. Goodbye!");
+                    System.out.println("\nThank you, " + currentUser.getName() + ", for using Smart Campus Lost & Found System. Goodbye!");
                     isRunning = false; // Ends the while loop
                     break;
                 default:
