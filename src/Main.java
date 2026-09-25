@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 /**
  * Smart Campus Lost & Found Management System
- * Day 2: Classes, Objects, Constructors, and User Profile Demonstration
+ * Day 3: LostItem Class, Constructor, Scanner Input, and Report Lost Item Feature
  */
 public class Main {
 
@@ -47,7 +47,8 @@ public class Main {
             // Process the user's menu selection using a switch statement
             switch (choice) {
                 case "1":
-                    System.out.println("\n[!] Report Lost Item - Feature coming soon!");
+                    // Day 3: Call our new reportLostItem method
+                    reportLostItem(scanner);
                     break;
                 case "2":
                     System.out.println("\n[!] Report Found Item - Feature coming soon!");
@@ -98,5 +99,44 @@ public class Main {
         System.out.println("7. Admin");
         System.out.println("8. Exit");
         System.out.println("---------------------------------------------");
+    }
+
+    /**
+     * Day 3: This method handles the "Report Lost Item" feature.
+     * It uses Scanner to collect details from the user,
+     * then creates a LostItem object and displays it.
+     *
+     * @param scanner  The same Scanner object from main() — we pass it in to avoid creating a new one.
+     */
+    public static void reportLostItem(Scanner scanner) {
+
+        System.out.println("\n========== REPORT A LOST ITEM ==========");
+
+        // Step 1: Collect each detail from the user using scanner.nextLine()
+        System.out.print("Enter Item ID (e.g., L001)    : ");
+        String itemId = scanner.nextLine().trim();
+
+        System.out.print("Enter Item Name               : ");
+        String itemName = scanner.nextLine().trim();
+
+        System.out.print("Enter Description             : ");
+        String description = scanner.nextLine().trim();
+
+        System.out.print("Enter Location where lost     : ");
+        String location = scanner.nextLine().trim();
+
+        System.out.print("Enter Date Lost (DD-MMM-YYYY) : ");
+        String dateLost = scanner.nextLine().trim();
+
+        System.out.print("Enter Your Name               : ");
+        String ownerName = scanner.nextLine().trim();
+
+        // Step 2: Create a LostItem object using the constructor
+        // We pass all 6 values collected above into the LostItem constructor
+        LostItem lostItem = new LostItem(itemId, itemName, description, location, dateLost, ownerName);
+
+        // Step 3: Call the display method to show the report summary
+        System.out.println("\n[✓] Lost item reported successfully!");
+        lostItem.displayItem();
     }
 }
