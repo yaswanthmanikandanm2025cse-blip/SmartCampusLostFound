@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 /**
  * Smart Campus Lost & Found Management System
- * Day 5: FoundItem class, Report Found Item, View Found Items, Search Item
+ * Day 6 + Day 7: Claim module (Pending/Approved/Rejected) and Admin login panel
  */
 public class Main {
 
@@ -17,6 +17,9 @@ public class Main {
 
         // Day 5: ArrayList to store FoundItem objects
         ArrayList<FoundItem> foundItems = new ArrayList<FoundItem>();
+
+        // Day 6: ArrayList to store Claim objects submitted by students
+        ArrayList<Claim> claims = new ArrayList<Claim>();
 
         // Welcome banner
         System.out.println("==================================================");
@@ -77,11 +80,13 @@ public class Main {
                     break;
 
                 case "6":
-                    System.out.println("\n[!] Claim Item - Feature coming soon!");
+                    // Day 6: Let the student submit a claim
+                    claimItem(scanner, claims);
                     break;
 
                 case "7":
-                    System.out.println("\n[!] Admin - Feature coming soon!");
+                    // Day 7: Open admin login panel
+                    Admin.adminLogin(scanner, lostItems, foundItems, claims);
                     break;
 
                 case "8":
@@ -293,5 +298,50 @@ public class Main {
             System.out.println("\n  No matching item found for: \"" + searchName + "\"");
             System.out.println("  Please check the spelling and try again.");
         }
+    }
+
+    // -----------------------------------------------------------------------
+
+    /**
+     * Day 6:
+     * Lets a student submit a claim for a lost or found item.
+     * Collects 5 details, creates a Claim object (status = Pending automatically),
+     * and adds it to the claims ArrayList.
+     *
+     * @param scanner The Scanner to read keyboard input
+     * @param claims  The ArrayList where the new Claim will be stored
+     */
+    public static void claimItem(Scanner scanner, ArrayList<Claim> claims) {
+
+        System.out.println("\n========== CLAIM AN ITEM ==========");
+
+        // Collect all claim details from the student
+        System.out.print("Enter Claim ID (e.g., C001)      : ");
+        String claimId = scanner.nextLine().trim();
+
+        System.out.print("Enter Item ID to claim (e.g. L001): ");
+        String itemId = scanner.nextLine().trim();
+
+        System.out.print("Enter your Student ID            : ");
+        String studentId = scanner.nextLine().trim();
+
+        System.out.print("Enter your Student Name          : ");
+        String studentName = scanner.nextLine().trim();
+
+        System.out.print("Enter Reason for Claim           : ");
+        String reason = scanner.nextLine().trim();
+
+        // Create a new Claim object.
+        // The constructor automatically sets status = "Pending" — we do NOT pass status.
+        Claim claim = new Claim(claimId, itemId, studentId, studentName, reason);
+
+        // Add the claim to the ArrayList
+        claims.add(claim);
+
+        // Confirm to the student
+        System.out.println("\n[✓] Claim submitted successfully!");
+        System.out.println("  Claim Status : " + claim.status);
+        claim.displayClaim();
+        System.out.println("  [Total claims submitted so far: " + claims.size() + "]");
     }
 }
